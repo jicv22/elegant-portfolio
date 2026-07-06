@@ -7,6 +7,7 @@
   --split-collapse-duration: 700ms;
   --split-title-fade-duration: 450ms;
   --split-vertical-enter-duration: 550ms;
+  --split-intro-reveal-duration: 650ms;
 }
 
 @theme inline {
@@ -167,6 +168,13 @@
   .split-section--compacted {
     flex-grow: var(--split-compact-flex-desktop);
   }
+}
+
+.split-landing--diagonal-ready .group\/split {
+  transition:
+    clip-path 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    flex-grow var(--split-collapse-duration) cubic-bezier(0.22, 1, 0.36, 1),
+    flex-basis var(--split-collapse-duration) cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 body {

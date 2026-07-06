@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { useSplitIntro } from "@/hooks/use-split-intro";
 import { cn } from "@/lib/cn";
 import type { SplitLandingProps } from "@/lib/split-landing/types";
 import { SplitSection } from "./SplitSection";
@@ -16,20 +17,26 @@ export function SplitLanding({
   compactFlex = DEFAULT_COMPACT_FLEX,
   compactFlexMobile = DEFAULT_COMPACT_FLEX_MOBILE,
   expandedFlex = DEFAULT_EXPANDED_FLEX,
+  showIntro = true,
 }: SplitLandingProps) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [activeId, setActiveId] = useState<string | null>(null);
+  const { isIntroActive, introRevealed } = useSplitIntro();
 
   const clearHover = useCallback(() => setHoveredId(null), []);
   const clearActive = useCallback(() => setActiveId(null), []);
 
   const focusedId = hoveredId ?? activeId;
+  const introEnabled = showIntro && isIntroActive;
+  const showDiagonal = !introEnabled;
+  const isInteractive = !introEnabled;
 
   return (
     <section
       className={cn(
         "relative flex h-dvh w-full overflow-hidden bg-black",
         "flex-col lg:flex-row",
+        showDiagonal && "split-landing--diagonal-ready",
       )}
       onMouseLeave={clearHover}
     >
@@ -37,6 +44,7 @@ export function SplitLanding({
         const isExpanded = focusedId === section.id;
         const isCompacted = Boolean(focusedId && focusedId !== section.id);
         const isPeerHovered = Boolean(hoveredId && hoveredId !== section.id);
+        const isRevealTarget = index === sections.length - 1;
 
         return (
           <SplitSection
@@ -48,6 +56,12 @@ export function SplitLanding({
             isExpanded={isExpanded}
             isCompacted={isCompacted}
             isPeerHovered={isPeerHovered}
+            isRevealTarget={isRevealTarget}
+            introEnabled={introEnabled}
+            introRevealed={introRevealed}
+            showDiagonal={showDiagonal}
+            isInteractive={isInteractive}
+            showTitle={!introEnabled || !isRevealTarget || introRevealed}
             diagonalOffset={diagonalOffset}
             compactFlex={compactFlex}
             compactFlexMobile={compactFlexMobile}

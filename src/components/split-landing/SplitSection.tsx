@@ -13,6 +13,12 @@ type SplitSectionProps = {
   isExpanded: boolean;
   isCompacted: boolean;
   isPeerHovered: boolean;
+  isRevealTarget: boolean;
+  introEnabled: boolean;
+  introRevealed: boolean;
+  showDiagonal: boolean;
+  isInteractive: boolean;
+  showTitle: boolean;
   diagonalOffset: string;
   compactFlex: number;
   compactFlexMobile: number;
@@ -32,6 +38,12 @@ export function SplitSection({
   isExpanded,
   isCompacted,
   isPeerHovered,
+  isRevealTarget,
+  introEnabled,
+  introRevealed,
+  showDiagonal,
+  isInteractive,
+  showTitle,
   diagonalOffset,
   compactFlex,
   compactFlexMobile,
@@ -44,6 +56,27 @@ export function SplitSection({
 }: SplitSectionProps) {
   const defaultImageDuration = section.defaultImageDuration ?? 6000;
   const defaultVideoDuration = section.defaultVideoDuration ?? 12000;
+
+  const flexStyle = (() => {
+    if (introEnabled) {
+      if (isRevealTarget) {
+        return {
+          flexGrow: introRevealed ? 1 : 0,
+          flexBasis: introRevealed ? "50%" : "0%",
+        };
+      }
+
+      return {
+        flexGrow: 1,
+        flexBasis: introRevealed ? "50%" : "100%",
+      };
+    }
+
+    return {
+      flexGrow: isExpanded ? expandedFlex : isCompacted ? undefined : 1,
+      flexBasis: isExpanded ? "0%" : isCompacted ? "0%" : "50%",
+    };
+  })();
 
   return (
     <Link
@@ -67,20 +100,26 @@ export function SplitSection({
           onActivate();
         }
       }}
+      tabIndex={isInteractive ? undefined : -1}
+      aria-disabled={!isInteractive}
       className={cn(
-        "group/split relative isolate min-h-0 min-w-0 overflow-hidden outline-none",
-        "transition-[flex-grow,flex-basis] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+        "group/split relative isolate min-h-0 min-w-0 h-full overflow-hidden outline-none",
+        introEnabled
+          ? "transition-[flex-grow,flex-basis] duration-[var(--split-intro-reveal-duration)] ease-[cubic-bezier(0.22,1,0.36,1)]"
+          : "transition-[flex-grow,flex-basis] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+        !isInteractive && "pointer-events-none",
         "focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
-        isFirst &&
+        showDiagonal &&
+          isFirst &&
           "max-lg:clip-split-top lg:clip-split-left max-lg:z-[2] lg:z-[1]",
-        isLast &&
+        showDiagonal &&
+          isLast &&
           "max-lg:clip-split-bottom lg:clip-split-right max-lg:z-[1] lg:z-[2]",
-        !isFirst && !isLast && "z-[1]",
+        showDiagonal && !isFirst && !isLast && "z-[1]",
         isCompacted && "split-section--compacted",
       )}
       style={{
-        flexGrow: isExpanded ? expandedFlex : isCompacted ? undefined : 1,
-        flexBasis: isExpanded ? "0%" : isCompacted ? "0%" : "50%",
+        ...flexStyle,
         ["--split-diagonal" as string]: diagonalOffset,
         ["--split-compact-flex-desktop" as string]: String(compactFlex),
         ["--split-compact-flex-mobile" as string]: String(compactFlexMobile),
@@ -105,12 +144,18 @@ export function SplitSection({
         <h2
           className={cn(
             "absolute inset-0 flex items-center justify-center px-6 text-center text-2xl font-semibold tracking-tight text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)] transition-opacity ease-[cubic-bezier(0.4,0,0.2,1)] sm:px-10 sm:text-3xl md:text-4xl lg:text-5xl",
-            isCompacted
-              ? "pointer-events-none opacity-0"
-              : "opacity-100 delay-[var(--split-collapse-duration)]",
+            !showTitle && "opacity-0",
+            showTitle &&
+              isCompacted &&
+              "pointer-events-none opacity-0",
+            showTitle &&
+              !isCompacted &&
+              "opacity-100 delay-[var(--split-collapse-duration)] duration-700",
           )}
           style={{
-            transitionDuration: "var(--split-title-fade-duration)",
+            transitionDuration: showTitle
+              ? undefined
+              : "var(--split-title-fade-duration)",
           }}
         >
           <span className="max-w-[18ch]">{section.title}</span>

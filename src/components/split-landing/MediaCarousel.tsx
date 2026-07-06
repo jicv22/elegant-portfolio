@@ -105,7 +105,7 @@ export function MediaCarousel({
             {item.type === "image" ? (
               <div
                 className={cn(
-                  "relative h-full w-full",
+                  "absolute inset-0",
                   isVisible && isActive && "animate-ken-burns",
                   isVisible && isActive && zoomDirection === "out" && "animate-ken-burns-out",
                 )}

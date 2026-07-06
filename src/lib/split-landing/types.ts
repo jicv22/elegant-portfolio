@@ -29,4 +29,5 @@ export type SplitLandingProps = {
   compactFlex?: number;
   compactFlexMobile?: number;
   expandedFlex?: number;
+  showIntro?: boolean;
 };
