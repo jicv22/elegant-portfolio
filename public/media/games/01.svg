@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Placeholder desarrollo de videojuegos">
+  <defs>
+    <linearGradient id="game1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a0b2e"/>
+      <stop offset="45%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#f97316"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#game1)"/>
+  <polygon points="1180,180 1420,320 1320,520 1040,420" fill="rgba(255,255,255,0.1)"/>
+  <rect x="160" y="560" width="420" height="28" rx="14" fill="rgba(255,255,255,0.16)"/>
+</svg>

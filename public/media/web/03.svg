@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Placeholder desarrollo web">
+  <defs>
+    <linearGradient id="web3" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="40%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#67e8f9"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#web3)"/>
+  <path d="M0 620 C360 540, 520 760, 900 700 C1180 660, 1380 520, 1600 580 L1600 900 L0 900 Z" fill="rgba(255,255,255,0.08)"/>
+  <rect x="220" y="180" width="220" height="220" rx="24" fill="rgba(255,255,255,0.12)"/>
+</svg>
