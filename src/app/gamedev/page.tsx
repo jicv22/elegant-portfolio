@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Desarrollo de Videojuegos",
+  title: "Gamedev",
 };
 
-export default function GameDevelopmentPage() {
+export default function GamedevPage() {
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center gap-6 bg-zinc-950 px-6 text-center text-white">
       <p className="text-sm uppercase tracking-[0.3em] text-zinc-400">MVP</p>

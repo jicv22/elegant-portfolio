@@ -4,7 +4,7 @@ export const splitLandingSections: SplitLandingSection[] = [
   {
     id: "web",
     title: "Desarrollo Web",
-    href: "/web-development",
+    href: "/",
     defaultImageDuration: 6000,
     defaultVideoDuration: 12000,
     media: [
@@ -31,7 +31,7 @@ export const splitLandingSections: SplitLandingSection[] = [
   {
     id: "games",
     title: "Desarrollo de Videojuegos",
-    href: "/game-development",
+    href: "/gamedev",
     defaultImageDuration: 6000,
     defaultVideoDuration: 12000,
     media: [
