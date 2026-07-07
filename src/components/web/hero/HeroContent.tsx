@@ -1,4 +1,5 @@
 import { heroContent } from "@/config/hero";
+import { EdgeGlowAnchor } from "@/components/ui/EdgeGlow";
 import { cn } from "@/lib/cn";
 
 export function HeroContent() {
@@ -30,7 +31,7 @@ export function HeroContent() {
         style={{ animationDelay: "0.28s" }}
       >
         {heroContent.ctas.map((cta) => (
-          <a
+          <EdgeGlowAnchor
             key={cta.href}
             href={cta.href}
             className={cn(
@@ -39,7 +40,7 @@ export function HeroContent() {
             )}
           >
             {cta.label}
-          </a>
+          </EdgeGlowAnchor>
         ))}
       </div>
     </div>

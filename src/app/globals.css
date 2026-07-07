@@ -302,6 +302,7 @@
   content: "";
   position: absolute;
   inset: 0;
+  z-index: -1;
   border-radius: inherit;
   pointer-events: none;
 }
@@ -354,6 +355,65 @@
   box-shadow:
     inset 0 1px 0 rgb(255 248 220 / 18%),
     0 2px 10px rgb(0 0 0 / 18%);
+}
+
+.edge-glow {
+  --glow-x: 50%;
+  --glow-y: 0%;
+  --glow-opacity: 0;
+  --edge-glow-hot: rgb(255 255 255 / 88%);
+  --edge-glow-soft: rgb(255 255 255 / 0%);
+  --edge-glow-spread: 68%;
+}
+
+.edge-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 2px;
+  background: radial-gradient(
+    var(--edge-glow-spread) var(--edge-glow-spread) at var(--glow-x) var(--glow-y),
+    var(--edge-glow-hot) 0%,
+    var(--edge-glow-soft) 44%,
+    transparent 78%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: var(--glow-opacity);
+  transition: opacity 0.22s ease;
+  pointer-events: none;
+}
+
+.hero-cta--primary.edge-glow {
+  --edge-glow-hot: rgb(255 248 225 / 96%);
+  --edge-glow-soft: rgb(255 236 190 / 42%);
+}
+
+.hero-cta--secondary.edge-glow {
+  --edge-glow-hot: rgb(255 255 255 / 90%);
+  --edge-glow-soft: rgb(212 175 55 / 32%);
+}
+
+.edge-glow--rail {
+  position: relative;
+  isolation: isolate;
+  --edge-glow-hot: rgb(244 220 150 / 92%);
+  --edge-glow-soft: rgb(212 175 55 / 30%);
+  --edge-glow-spread: 72%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .edge-glow::after {
+    display: none;
+  }
 }
 
 body {
@@ -627,15 +687,27 @@ html {
 }
 
 .site-nav__mobile {
-  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  border-top: 1px solid transparent;
   background: rgb(9 9 11 / 92%);
   backdrop-filter: blur(14px);
+  pointer-events: none;
+  transition:
+    grid-template-rows 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease;
 }
 
-@media (min-width: 768px) {
-  .site-nav__mobile {
-    display: none !important;
-  }
+.site-nav__mobile--open {
+  grid-template-rows: 1fr;
+  border-top-color: var(--border);
+  pointer-events: auto;
+}
+
+.site-nav__mobile-inner {
+  overflow: hidden;
+  min-height: 0;
 }
 
 .site-nav__mobile-links {
@@ -645,6 +717,40 @@ html {
   list-style: none;
   margin: 0;
   padding: 0.75rem 1.25rem 1.25rem;
+}
+
+@keyframes site-nav-mobile-item-in {
+  from {
+    opacity: 0;
+    transform: translateX(-1.35rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.site-nav__mobile--open .site-nav__mobile-item {
+  animation: site-nav-mobile-item-in 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav__mobile {
+    transition: none;
+  }
+
+  .site-nav__mobile--open .site-nav__mobile-item {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .site-nav__mobile {
+    display: none !important;
+  }
 }
 
 .site-nav__mobile-link {
@@ -709,4 +815,158 @@ html {
 
 .hero-cta--disabled::before {
   opacity: 0;
+}
+
+.contact-rail {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-end: 0;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  padding-inline-end: 0.85rem;
+  pointer-events: none;
+}
+
+.contact-rail__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  pointer-events: auto;
+}
+
+.contact-rail__button {
+  display: inline-flex;
+  width: 2.65rem;
+  height: 2.65rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  background: rgb(9 9 11 / 72%);
+  color: var(--text-secondary);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.contact-rail__button:hover {
+  border-color: var(--border-gold);
+  background: var(--gold-soft);
+  color: var(--foreground);
+  transform: translateY(-1px);
+}
+
+.contact-rail__icon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.contact-rail__email {
+  position: relative;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact-rail__email::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    inset-inline-end: 100%;
+    width: 0.55rem;
+  }
+}
+
+.contact-rail__menu {
+  position: absolute;
+  inset-inline-end: calc(100% + 0.55rem);
+  top: 50%;
+  z-index: 1;
+  min-width: 10.5rem;
+  translate: 0 -50%;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 0.85rem;
+  background: rgb(9 9 11 / 94%);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 28%);
+}
+
+.contact-rail__menu-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 0.7rem 0.9rem;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.contact-rail__menu-item:hover {
+  background: rgb(255 255 255 / 6%);
+  color: var(--foreground);
+}
+
+.contact-rail__menu-item + .contact-rail__menu-item {
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 767px) {
+  .contact-rail {
+    inset-block: auto 0;
+    inset-inline: 0;
+    align-items: flex-end;
+    justify-content: center;
+    padding-block-end: max(0.85rem, env(safe-area-inset-bottom));
+    padding-inline: 1rem;
+  }
+
+  .contact-rail__list {
+    flex-direction: row;
+    gap: 0.75rem;
+    padding: 0.45rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    background: rgb(9 9 11 / 84%);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 8px 28px rgb(0 0 0 / 32%);
+  }
+
+  .contact-rail__button {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .contact-rail__email::before {
+    top: auto;
+    right: 0;
+    bottom: 100%;
+    left: 0;
+    width: auto;
+    height: 0.55rem;
+  }
+
+  .contact-rail__menu {
+    inset-inline-end: 50%;
+    top: auto;
+    bottom: calc(100% + 0.55rem);
+    min-width: 9.75rem;
+    translate: 50% 0;
+  }
 }

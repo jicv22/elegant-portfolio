@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ContactRail } from "@/components/web/contact/ContactRail";
 import { Hero } from "@/components/web/hero/Hero";
 import { SiteNavbar } from "@/components/web/nav/SiteNavbar";
 import { siteSections } from "@/config/site";
@@ -11,8 +12,9 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="bg-background text-foreground">
+    <main className="bg-background pb-24 text-foreground md:pb-0">
       <SiteNavbar />
+      <ContactRail />
       <Hero />
       <section
         id={siteSections.projects}

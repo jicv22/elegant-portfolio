@@ -1,4 +1,5 @@
 import { cvDownload } from "@/config/cv";
+import { EdgeGlowAnchor } from "@/components/ui/EdgeGlow";
 import { cn } from "@/lib/cn";
 
 type CvNavCtaProps = {
@@ -26,7 +27,7 @@ export function CvNavCta({ className }: CvNavCtaProps) {
   }
 
   return (
-    <a
+    <EdgeGlowAnchor
       href={cvDownload.routePath}
       className={cn(
         "hero-cta hero-cta--primary hero-cta--compact",
@@ -36,6 +37,6 @@ export function CvNavCta({ className }: CvNavCtaProps) {
       rel="noopener"
     >
       {label}
-    </a>
+    </EdgeGlowAnchor>
   );
 }

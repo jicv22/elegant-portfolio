@@ -105,19 +105,34 @@ export function SiteNavbar() {
       <div
         id="site-nav-mobile"
         className={cn("site-nav__mobile", menuOpen && "site-nav__mobile--open")}
-        hidden={!menuOpen}
+        aria-hidden={!menuOpen}
       >
-        <nav aria-label="Mobile">
-          <ul className="site-nav__mobile-links">
-            {siteNav.links.map((link) => (
-              <li key={link.href}>
-                <a href={link.href} className="site-nav__mobile-link" onClick={closeMenu}>
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="site-nav__mobile-inner">
+          <nav aria-label="Mobile">
+            <ul className="site-nav__mobile-links">
+              {siteNav.links.map((link, index) => (
+                <li
+                  key={link.href}
+                  className="site-nav__mobile-item"
+                  style={
+                    menuOpen
+                      ? { animationDelay: `${0.14 + index * 0.09}s` }
+                      : undefined
+                  }
+                >
+                  <a
+                    href={link.href}
+                    className="site-nav__mobile-link"
+                    onClick={closeMenu}
+                    tabIndex={menuOpen ? undefined : -1}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </div>
     </header>
   );
