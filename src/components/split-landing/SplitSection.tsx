@@ -81,7 +81,7 @@ export function SplitSection({
   return (
     <Link
       href={section.href}
-      aria-label={`Ir a ${section.title}`}
+      aria-label={`Go to ${section.title}`}
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
       onFocus={onFocus}

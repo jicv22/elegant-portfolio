@@ -23,10 +23,35 @@ export type PinFieldRuntimeState = {
   };
 };
 
+type UsePinFieldRuntimeOptions = {
+  /** Track pointer on document while the observe target is in view (hero + navbar). */
+  globalPointerTracking?: boolean;
+};
+
+function updatePointerNdc(
+  bounds: HTMLElement,
+  clientX: number,
+  clientY: number,
+  pointerNdcRef: RefObject<PinFieldPointerNdc>,
+) {
+  const rect = bounds.getBoundingClientRect();
+
+  if (rect.width <= 0 || rect.height <= 0) {
+    return;
+  }
+
+  pointerNdcRef.current.x =
+    ((clientX - rect.left) / rect.width) * 2 - 1;
+  pointerNdcRef.current.y =
+    -((clientY - rect.top) / rect.height) * 2 + 1;
+}
+
 export function usePinFieldRuntime(
   observeElement: HTMLElement | null,
   profile: PinFieldProfileConfig,
-): PinFieldRuntimeState {
+  options: UsePinFieldRuntimeOptions = {},
+) {
+  const { globalPointerTracking = false } = options;
   const hoveringRef = useRef(false);
   const isActiveRef = useRef(true);
   const isInteractiveRef = useRef(false);
@@ -45,6 +70,14 @@ export function usePinFieldRuntime(
     if (!isActive) {
       hoveringRef.current = false;
     }
+  }, []);
+
+  const canTrackPointer = useCallback(() => {
+    return (
+      isInteractiveRef.current &&
+      isInViewRef.current &&
+      isDocumentVisibleRef.current
+    );
   }, []);
 
   useEffect(() => {
@@ -138,30 +171,53 @@ export function usePinFieldRuntime(
     };
   }, []);
 
+  useEffect(() => {
+    if (!globalPointerTracking || !observeElement) {
+      return;
+    }
+
+    const bounds = observeElement;
+
+    const onPointerMove = (event: globalThis.PointerEvent) => {
+      if (!canTrackPointer()) {
+        return;
+      }
+
+      updatePointerNdc(bounds, event.clientX, event.clientY, pointerNdcRef);
+      hoveringRef.current = true;
+    };
+
+    document.addEventListener("pointermove", onPointerMove, { passive: true });
+
+    return () => {
+      document.removeEventListener("pointermove", onPointerMove);
+    };
+  }, [canTrackPointer, globalPointerTracking, observeElement]);
+
   const handlePointerMove = useCallback(
     (event: PointerEvent<HTMLElement>) => {
-      if (!isInteractiveRef.current) {
+      if (!canTrackPointer()) {
         return;
       }
 
-      const rect = event.currentTarget.getBoundingClientRect();
-
-      if (rect.width <= 0 || rect.height <= 0) {
-        return;
-      }
-
-      pointerNdcRef.current.x =
-        ((event.clientX - rect.left) / rect.width) * 2 - 1;
-      pointerNdcRef.current.y =
-        -((event.clientY - rect.top) / rect.height) * 2 + 1;
+      updatePointerNdc(
+        event.currentTarget,
+        event.clientX,
+        event.clientY,
+        pointerNdcRef,
+      );
       hoveringRef.current = true;
     },
-    [],
+    [canTrackPointer],
   );
 
   const handlePointerLeave = useCallback(() => {
+    if (globalPointerTracking) {
+      return;
+    }
+
     hoveringRef.current = false;
-  }, []);
+  }, [globalPointerTracking]);
 
   return {
     gridSize,
