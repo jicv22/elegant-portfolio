@@ -32,6 +32,12 @@ export type PinFieldCameraConfig = {
   far: number;
 };
 
+/** Dolly from lookAt toward final camera position. 0 = lookAt, 1 = final. */
+export type PinFieldCameraIntroConfig = {
+  startFactor: number;
+  durationMs: number;
+};
+
 export type PinFieldProfileConfig = {
   id: "lab" | "hero";
   gridSize: number;
@@ -57,6 +63,7 @@ export type PinFieldProfileConfig = {
   wave: PinFieldWaveConfig;
   lighting: PinFieldLightingConfig;
   camera: PinFieldCameraConfig;
+  cameraIntro?: PinFieldCameraIntroConfig;
   fog: { near: number; far: number };
   dpr: [number, number];
 };

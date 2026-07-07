@@ -211,6 +211,26 @@
   pointer-events: none;
 }
 
+.hero-pin-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: #000;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-pin-veil--ready {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-pin-veil {
+    transition: none;
+  }
+}
+
 .hero-scrim {
   background:
     linear-gradient(

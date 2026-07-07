@@ -1,5 +1,20 @@
 import type { PinFieldProfileConfig } from "@/lib/pin-field/types";
-import { CapsuleGeometry } from "three";
+import { CapsuleGeometry, Vector3 } from "three";
+
+export function easeOutCubic(t: number) {
+  return 1 - (1 - t) ** 3;
+}
+
+export function getCameraIntroStart(
+  lookAt: [number, number, number],
+  position: [number, number, number],
+  factor: number,
+) {
+  const target = new Vector3(...lookAt);
+  const end = new Vector3(...position);
+
+  return target.lerp(end, factor);
+}
 
 export function smoothstep(edge0: number, edge1: number, value: number) {
   const t = Math.max(0, Math.min(1, (value - edge0) / (edge1 - edge0)));

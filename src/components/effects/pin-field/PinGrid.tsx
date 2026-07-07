@@ -49,11 +49,13 @@ export function PinGrid() {
     isInteractiveRef,
     prefersReducedMotionRef,
     pointerNdcRef,
+    onSceneReady,
   } = usePinFieldContext();
 
   const meshRef = useRef<InstancedMesh>(null);
   const heightsRef = useRef<Float32Array | null>(null);
   const elapsedRef = useRef(0);
+  const sceneReadyRef = useRef(false);
   const { camera, raycaster } = useThree();
 
   const count = gridSize * gridSize;
@@ -94,12 +96,20 @@ export function PinGrid() {
   }, [count, baseColor]);
 
   useFrame((_, delta) => {
+    const mesh = meshRef.current;
+    const heights = heightsRef.current;
+
+    if (!sceneReadyRef.current && mesh && heights) {
+      sceneReadyRef.current = true;
+
+      if (profile.cameraIntro) {
+        onSceneReady();
+      }
+    }
+
     if (!isActiveRef.current) {
       return;
     }
-
-    const mesh = meshRef.current;
-    const heights = heightsRef.current;
 
     if (!mesh || !heights) {
       return;

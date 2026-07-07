@@ -8,7 +8,7 @@ import { PinFieldScene } from "@/components/effects/pin-field/PinFieldScene";
 import type { PinFieldProfileConfig } from "@/lib/pin-field/types";
 import { cn } from "@/lib/cn";
 import { Canvas } from "@react-three/fiber";
-import type { CSSProperties } from "react";
+import { useCallback, useState, type CSSProperties } from "react";
 
 type PinFieldBackgroundProps = {
   profile: PinFieldProfileConfig;
@@ -24,6 +24,11 @@ export function PinFieldBackground({
   style,
 }: PinFieldBackgroundProps) {
   const { camera } = profile;
+  const hasIntro = Boolean(profile.cameraIntro);
+  const [sceneReady, setSceneReady] = useState(false);
+  const onSceneReady = useCallback(() => {
+    setSceneReady(true);
+  }, []);
   const {
     frameloop,
     gridSize,
@@ -50,6 +55,8 @@ export function PinFieldBackground({
           prefersReducedMotionRef,
           pointerNdcRef,
         }}
+        sceneReady={sceneReady}
+        onSceneReady={onSceneReady}
       >
         <Canvas
           className="h-full w-full touch-none pointer-events-none"
@@ -62,12 +69,20 @@ export function PinFieldBackground({
             far: camera.far,
           }}
           onCreated={({ camera: activeCamera }) => {
-            activeCamera.lookAt(...camera.lookAt);
+            if (!hasIntro) {
+              activeCamera.lookAt(...camera.lookAt);
+            }
           }}
         >
           <PinFieldScene />
         </Canvas>
       </PinFieldProvider>
+      {hasIntro ? (
+        <div
+          className={cn("hero-pin-veil", sceneReady && "hero-pin-veil--ready")}
+          aria-hidden
+        />
+      ) : null}
     </div>
   );
 }

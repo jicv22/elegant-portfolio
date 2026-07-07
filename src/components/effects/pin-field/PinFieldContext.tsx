@@ -11,6 +11,8 @@ export type PinFieldRuntime = Omit<
 
 type PinFieldContextValue = PinFieldRuntime & {
   profile: PinFieldProfileConfig;
+  sceneReady: boolean;
+  onSceneReady: () => void;
 };
 
 const PinFieldContext = createContext<PinFieldContextValue | null>(null);
@@ -18,14 +20,20 @@ const PinFieldContext = createContext<PinFieldContextValue | null>(null);
 export function PinFieldProvider({
   profile,
   runtime,
+  sceneReady,
+  onSceneReady,
   children,
 }: {
   profile: PinFieldProfileConfig;
   runtime: PinFieldRuntime;
+  sceneReady: boolean;
+  onSceneReady: () => void;
   children: React.ReactNode;
 }) {
   return (
-    <PinFieldContext.Provider value={{ profile, ...runtime }}>
+    <PinFieldContext.Provider
+      value={{ profile, ...runtime, sceneReady, onSceneReady }}
+    >
       {children}
     </PinFieldContext.Provider>
   );

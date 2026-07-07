@@ -1,5 +1,6 @@
 "use client";
 
+import { PinFieldCameraRig } from "@/components/effects/pin-field/PinFieldCameraRig";
 import { PinGrid } from "@/components/effects/pin-field/PinGrid";
 import { usePinFieldContext } from "@/components/effects/pin-field/PinFieldContext";
 
@@ -74,6 +75,7 @@ export function PinFieldScene() {
         decay={2}
       />
 
+      {profile.cameraIntro ? <PinFieldCameraRig /> : null}
       <PinGrid key={gridSize} />
     </>
   );

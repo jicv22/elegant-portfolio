@@ -100,6 +100,10 @@ export const pinFieldHeroProfile: PinFieldProfileConfig = {
     near: 0.1,
     far: 28,
   },
+  cameraIntro: {
+    startFactor: 0.28,
+    durationMs: 1400,
+  },
   fog: { near: 18, far: 36 },
   dpr: [1, 1.5],
 };
