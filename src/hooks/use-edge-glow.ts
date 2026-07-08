@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, type PointerEvent } from "react";
 
-const GLOW_LERP = 0.14;
+const GLOW_LERP = 0.05;
 const GLOW_SETTLE_THRESHOLD = 0.06;
 
 type GlowPoint = {

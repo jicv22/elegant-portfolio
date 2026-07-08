@@ -1,5 +1,6 @@
 export const siteSections = {
   home: "home",
+  technologies: "technologies",
   projects: "projects",
   contact: "contact",
 } as const;

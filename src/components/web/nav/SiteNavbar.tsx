@@ -2,6 +2,7 @@
 
 import { siteBrand, siteNav } from "@/config/site";
 import { CvNavCta } from "@/components/web/nav/CvNavCta";
+import { TextShineLink } from "@/components/ui/TextShineControl";
 import { cn } from "@/lib/cn";
 import { useEffect, useState } from "react";
 
@@ -77,9 +78,9 @@ export function SiteNavbar() {
           <ul className="site-nav__links">
             {siteNav.links.map((link) => (
               <li key={link.href}>
-                <a href={link.href} className="site-nav__link">
+                <TextShineLink href={link.href} className="site-nav__link">
                   {link.label}
-                </a>
+                </TextShineLink>
               </li>
             ))}
           </ul>

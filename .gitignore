@@ -42,3 +42,4 @@ next-env.d.ts
 
 # CV PDF (enable in src/config/cv.ts after adding the file locally / in deploy)
 private/cv/*.pdf
+docs
