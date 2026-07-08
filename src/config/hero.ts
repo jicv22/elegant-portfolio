@@ -4,7 +4,7 @@ export const heroContent = {
   name: "Isaac CV",
   headline: "Hablemos de tu negocio",
   description:
-    "Desarrollo sitios y productos web a medida para que tu negocio destaque en línea.",
+    "Desarrollo sitios y productos web a medida para que tu negocio o proyecto destaque en línea.",
   ctas: [
     {
       label: "Contactar",

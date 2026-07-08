@@ -30,7 +30,7 @@ export function HeroStage() {
       <div ref={setTrackElement} className="relative h-dvh overflow-hidden">
         <HeroPinBackground runtime={runtime} />
         <div className="hero-scrim pointer-events-none absolute inset-0" aria-hidden />
-        <div className="pointer-events-none relative z-10 flex h-full items-center justify-start px-6 py-28 sm:px-10 lg:px-14 xl:px-16">
+        <div className="pointer-events-none relative z-10 flex h-full items-center justify-start px-12 py-28 sm:px-16 md:px-20 lg:px-28 xl:px-36 2xl:px-44">
           <HeroContent />
         </div>
       </div>

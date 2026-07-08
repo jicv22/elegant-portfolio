@@ -1,14 +1,16 @@
 "use client";
 
+import { BrandLogo } from "@/components/web/nav/BrandLogo";
 import { siteBrand, siteNav } from "@/config/site";
 import { CvNavCta } from "@/components/web/nav/CvNavCta";
 import { TextShineLink } from "@/components/ui/TextShineControl";
 import { cn } from "@/lib/cn";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function SiteNavbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -51,12 +53,32 @@ export function SiteNavbar() {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    if (!menuOpen) {
+      return;
+    }
+
+    const onPointerDown = (event: PointerEvent) => {
+      const header = headerRef.current;
+      if (header && !header.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [menuOpen]);
+
   const closeMenu = () => {
     setMenuOpen(false);
   };
 
   return (
     <header
+      ref={headerRef}
       className={cn("site-nav", scrolled && "site-nav--scrolled")}
       data-scrolled={scrolled || undefined}
     >
@@ -89,13 +111,13 @@ export function SiteNavbar() {
         <a
           href={siteBrand.href}
           className="site-nav__brand"
-          aria-label={`${siteBrand.name} — home`}
+          aria-label={`${siteBrand.name} — inicio`}
           onClick={closeMenu}
         >
-          <span className="site-nav__brand-mark" aria-hidden>
-            I
-          </span>
-          <span className="site-nav__brand-name">{siteBrand.name}</span>
+          <BrandLogo
+            className="site-nav__brand-logo"
+            aria-label={siteBrand.logoAlt}
+          />
         </a>
 
         <div className="site-nav__end">

@@ -12,7 +12,9 @@ export function sectionHref(sectionId: SiteSectionId) {
 }
 
 export const siteBrand = {
-  name: "Isaac",
+  name: "JICV",
+  logoSrc: "/media/brand/jicv-logo.svg",
+  logoAlt: "JICV",
   href: sectionHref(siteSections.home),
 } as const;
 
