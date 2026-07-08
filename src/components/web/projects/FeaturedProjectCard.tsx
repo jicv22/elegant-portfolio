@@ -36,7 +36,10 @@ export function FeaturedProjectCard({
       onAnimationEnd={onEnterAnimationEnd}
       onClick={onOpen}
     >
-      <div className="project-featured__media">
+      <div
+        className="project-featured__media"
+        data-cover-fit={project.cover.fit ?? "cover"}
+      >
         <Image
           src={project.cover.src}
           alt={project.cover.alt}

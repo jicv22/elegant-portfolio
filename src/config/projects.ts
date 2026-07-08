@@ -41,7 +41,7 @@ export const projects: ProjectRecord[] = [
       "Rediseño y retrabajo de múltiples rutas críticas del producto.",
     ],
     cover: {
-      src: "/media/projects/soulutions-cover.svg",
+      src: "/media/projects/cover-soulutions.webp",
       alt: "Vista previa del proyecto Soulutions",
     },
     gallery: [],
@@ -85,7 +85,7 @@ export const projects: ProjectRecord[] = [
       "Correcciones de roles, responsividad y validaciones de negocio.",
     ],
     cover: {
-      src: "/media/projects/conta-fast-cover.svg",
+      src: "/media/projects/cover-contafast.webp",
       alt: "Vista previa del proyecto Conta Fast",
     },
     gallery: [],
@@ -131,7 +131,7 @@ export const projects: ProjectRecord[] = [
       "Optimización con DataLoader, roles granulares y trazabilidad de boletos.",
     ],
     cover: {
-      src: "/media/projects/eurek-tickets-cover.svg",
+      src: "/media/projects/cover-eurek-tickets.webp",
       alt: "Vista previa del proyecto Eurek Tickets",
     },
     gallery: [],
@@ -172,7 +172,7 @@ export const projects: ProjectRecord[] = [
       "Configuración de despliegue en Firebase e iconografía SVG personalizada.",
     ],
     cover: {
-      src: "/media/projects/tecno-air-landing-cover.svg",
+      src: "/media/projects/cover-tecno-air-cold-landing.webp",
       alt: "Vista previa del landing Tecno Air Cold",
     },
     gallery: [],
@@ -212,7 +212,7 @@ export const projects: ProjectRecord[] = [
       "Implementación y corrección de funcionalidades pendientes del cliente.",
     ],
     cover: {
-      src: "/media/projects/tecno-air-fsm-cover.svg",
+      src: "/media/projects/cover-tecno-air-cold-fsm.webp",
       alt: "Vista previa del sistema FSM Tecno Air Cold",
     },
     gallery: [],
@@ -255,7 +255,7 @@ export const projects: ProjectRecord[] = [
       "Corrección de bugs en agendamiento y nuevas funcionalidades solicitadas.",
     ],
     cover: {
-      src: "/media/projects/king-of-kings-cover.svg",
+      src: "/media/projects/cover-king-of-kings.webp",
       alt: "Vista previa del ecosistema King of Kings",
     },
     gallery: [],

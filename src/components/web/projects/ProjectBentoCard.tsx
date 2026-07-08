@@ -44,6 +44,7 @@ export function ProjectBentoCard({
       <div
         className="project-bento-card__cover"
         data-cover-ratio={layout.coverRatio ?? "16/10"}
+        data-cover-fit={project.cover.fit ?? "cover"}
       >
         <Image
           src={project.cover.src}

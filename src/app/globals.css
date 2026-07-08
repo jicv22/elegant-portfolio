@@ -1657,6 +1657,15 @@ html {
   object-fit: cover;
 }
 
+.project-featured__media[data-cover-fit="contain"] {
+  background: #0f1014;
+}
+
+.project-featured__media[data-cover-fit="contain"] .project-featured__image {
+  object-fit: contain;
+  padding: 2rem;
+}
+
 .project-featured__shade {
   position: absolute;
   inset: 0;
@@ -1813,8 +1822,18 @@ html {
   transition: transform 0.35s ease;
 }
 
+.project-bento-card__cover[data-cover-fit="contain"] .project-bento-card__image {
+  object-fit: contain;
+  padding: 1.5rem;
+}
+
 .project-bento-card:hover .project-bento-card__image {
   transform: scale(1.03);
+}
+
+.project-bento-card__cover[data-cover-fit="contain"]:hover
+  .project-bento-card__image {
+  transform: scale(1.05);
 }
 
 .project-bento-card__body {
@@ -1872,6 +1891,11 @@ html {
 
 .project-detail-gallery__image {
   object-fit: cover;
+}
+
+.project-detail-gallery__hero[data-cover-fit="contain"] .project-detail-gallery__image {
+  object-fit: contain;
+  padding: 2.5rem;
 }
 
 .project-detail-gallery__grid {

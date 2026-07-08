@@ -44,6 +44,8 @@ export type ProjectRecord = {
   cover: {
     src: string;
     alt: string;
+    /** How the image fits its box. Use "contain" for logos on solid bg. */
+    fit?: "cover" | "contain";
   };
   gallery: ProjectMediaItem[];
 };

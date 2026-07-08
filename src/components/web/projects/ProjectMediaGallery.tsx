@@ -5,6 +5,7 @@ type ProjectMediaGalleryProps = {
   cover: {
     src: string;
     alt: string;
+    fit?: "cover" | "contain";
   };
   gallery: ProjectMediaItem[];
 };
@@ -17,7 +18,10 @@ export function ProjectMediaGallery({
 
   return (
     <div className="project-detail-gallery">
-      <figure className="project-detail-gallery__hero">
+      <figure
+        className="project-detail-gallery__hero"
+        data-cover-fit={cover.fit ?? "cover"}
+      >
         <Image
           src={cover.src}
           alt={cover.alt}
