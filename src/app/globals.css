@@ -24,7 +24,6 @@
 /* ── Feature stylesheets ────────────────────────────────────────────────── */
 @import "../styles/nav.css";
 @import "../styles/hero.css";
-@import "../styles/split-landing.css";
 @import "../styles/technologies.css";
 @import "../styles/projects.css";
 @import "../styles/contact.css";
