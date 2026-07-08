@@ -1,0 +1,695 @@
+/* ── Projects Section ───────────────────────────────────────────────────────
+   Styles for the three-panel sliding viewport (featured → all → detail),
+   featured project cards, bento grid cards, detail view, and reveal
+   entrance animations.
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* ── Section container ──────────────────────────────────────────────────── */
+
+.projects-section {
+  --project-card-bg: var(--surface);
+  border-top: 1px solid var(--border);
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgb(201 162 39 / 6%), transparent 70%),
+    var(--background);
+}
+
+/* ── Stage (content wrapper) ────────────────────────────────────────────── */
+
+.projects-stage {
+  position: relative;
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .projects-stage {
+    padding-inline: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .projects-stage {
+    padding-inline: 2.25rem;
+  }
+}
+
+/* ── Three-panel sliding track ──────────────────────────────────────────── */
+
+.projects-panel {
+  padding-block: 4.5rem;
+}
+
+@media (min-width: 1024px) {
+  .projects-panel {
+    padding-block: 5.5rem;
+  }
+}
+
+.projects-list-viewport {
+  overflow: hidden;
+  overflow-x: clip;
+  width: 100%;
+  transition: height 0.56s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.projects-list-track {
+  display: flex;
+  align-items: flex-start;
+  width: 300%;
+  transition: transform 0.56s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.projects-list-panel {
+  flex: 0 0 calc(100% / 3);
+  width: calc(100% / 3);
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ── Panel headers ──────────────────────────────────────────────────────── */
+
+.projects-panel__header {
+  margin-bottom: 2rem;
+}
+
+.projects-panel__header--subview {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.projects-panel__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.projects-back-control {
+  margin: 0;
+}
+
+.projects-panel__header--row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .projects-panel__header--row {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.projects-panel__eyebrow {
+  margin: 0 0 0.45rem;
+  color: var(--gold-strong);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.projects-panel__title {
+  margin: 0;
+  color: var(--foreground);
+  font-size: clamp(1.75rem, 3vw, 2.35rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.projects-panel__lead {
+  margin: 0.75rem 0 0;
+  max-width: 40rem;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.projects-panel__meta {
+  margin: 0.45rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.projects-panel__footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+.projects-panel__footer--subview {
+  margin-top: 3rem;
+}
+
+/* ── Reveal entrance animations ─────────────────────────────────────────── */
+
+@keyframes project-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(1.15rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.project-card-enter:not([data-revealed]) {
+  opacity: 0;
+  transform: translateY(1.15rem);
+  pointer-events: none;
+}
+
+.project-card-enter[data-revealed] {
+  animation: project-card-enter 0.76s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.project-card-enter[data-enter-complete] {
+  animation: none;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes project-detail-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.85rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.project-detail-enter:not([data-revealed]) {
+  opacity: 0;
+  transform: translateY(0.85rem);
+  pointer-events: none;
+}
+
+.project-detail-enter[data-revealed] {
+  animation: project-detail-enter 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.project-detail-enter[data-enter-complete] {
+  animation: none;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Featured project cards ─────────────────────────────────────────────── */
+
+.projects-featured-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+.project-featured {
+  --project-card-bg: var(--surface);
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 1.35rem;
+  background: var(--project-card-bg);
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+  font: inherit;
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease;
+}
+
+.project-featured:hover {
+  border-color: var(--border-gold);
+  box-shadow: 0 14px 40px rgb(0 0 0 / 24%);
+  transform: translateY(-2px);
+}
+
+.project-featured--reverse .project-featured__media { order: 2; }
+.project-featured--reverse .project-featured__content { order: 1; }
+
+.project-featured__media {
+  position: relative;
+  min-height: 15rem;
+  overflow: hidden;
+}
+
+.project-featured__image {
+  object-fit: cover;
+}
+
+.project-featured__media[data-cover-fit="contain"] {
+  background: #0f1014;
+}
+
+.project-featured__media[data-cover-fit="contain"] .project-featured__image {
+  object-fit: contain;
+  padding: 2rem;
+}
+
+.project-featured__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    transparent 30%,
+    rgb(20 18 16 / 18%) 58%,
+    var(--project-card-bg) 100%
+  );
+}
+
+.project-featured--reverse .project-featured__shade {
+  background: linear-gradient(
+    to left,
+    transparent 30%,
+    rgb(20 18 16 / 18%) 58%,
+    var(--project-card-bg) 100%
+  );
+}
+
+.project-featured__hover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  background: rgb(9 9 11 / 52%);
+  color: var(--foreground);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+
+.project-featured:hover .project-featured__hover {
+  opacity: 1;
+}
+
+.project-featured__hover-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.project-featured__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.85rem;
+  padding: 1.5rem 1.6rem;
+}
+
+.project-featured__eyebrow {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.project-featured__title {
+  margin: 0;
+  color: var(--foreground);
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.project-featured__summary {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.96rem;
+  line-height: 1.65;
+}
+
+/* ── Tech tag list ──────────────────────────────────────────────────────── */
+
+.project-tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.project-tech-list__item {
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  background: rgb(255 255 255 / 4%);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.28rem 0.62rem;
+}
+
+/* ── Bento grid (all projects panel) ────────────────────────────────────── */
+
+.projects-bento {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-rows: minmax(7.5rem, auto);
+  grid-auto-flow: dense;
+  gap: 1rem;
+}
+
+.project-bento-card {
+  grid-column: span var(--bento-col-span, 1);
+  grid-row: span var(--bento-row-span, 1);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 1.1rem;
+  background: var(--surface);
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease;
+}
+
+.project-bento-card:hover {
+  border-color: var(--border-gold);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 22%);
+  transform: translateY(-2px);
+}
+
+.project-bento-card__cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  flex-shrink: 0;
+  background: #0f1014;
+}
+
+.project-bento-card__cover[data-cover-ratio="fill"] {
+  aspect-ratio: auto;
+  flex: 1;
+  min-height: 10rem;
+}
+
+.project-bento-card__cover[data-cover-ratio="21/9"] {
+  aspect-ratio: 21 / 9;
+}
+
+.project-bento-card__image {
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.project-bento-card__cover[data-cover-fit="contain"] .project-bento-card__image {
+  object-fit: contain;
+  padding: 1.5rem;
+}
+
+.project-bento-card:hover .project-bento-card__image {
+  transform: scale(1.03);
+}
+
+.project-bento-card__cover[data-cover-fit="contain"]:hover
+  .project-bento-card__image {
+  transform: scale(1.05);
+}
+
+.project-bento-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1rem 1.05rem 1.1rem;
+}
+
+.project-bento-card__type {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.project-bento-card__title {
+  margin: 0;
+  color: var(--foreground);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.project-bento-card__summary {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.project-bento-card__cta {
+  margin-top: auto;
+  align-self: flex-start;
+  color: var(--gold-strong);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* ── Detail panel — media gallery ───────────────────────────────────────── */
+
+.project-detail-gallery__hero {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 21 / 9;
+  border: 1px solid var(--border);
+  border-radius: 1.1rem;
+  background: #0f1014;
+}
+
+.project-detail-gallery__image {
+  object-fit: cover;
+}
+
+.project-detail-gallery__hero[data-cover-fit="contain"] .project-detail-gallery__image {
+  object-fit: contain;
+  padding: 2.5rem;
+}
+
+.project-detail-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin-top: 0.85rem;
+}
+
+.project-detail-gallery__item {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--border);
+  border-radius: 0.85rem;
+  background: #0f1014;
+}
+
+.project-detail-gallery__item--video {
+  aspect-ratio: 16 / 9;
+}
+
+.project-detail-gallery__video {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.project-detail-gallery__caption {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: 0.45rem 0.6rem;
+  background: linear-gradient(to top, rgb(9 9 11 / 88%), transparent);
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+}
+
+.project-detail-gallery__placeholder {
+  margin: 0.85rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+}
+
+/* ── Detail panel — body layout ─────────────────────────────────────────── */
+
+.projects-detail-body {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .projects-detail-body {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.9fr);
+    gap: 2rem;
+  }
+}
+
+.projects-detail-body__main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.projects-detail-block__title {
+  margin: 0 0 0.65rem;
+  color: var(--foreground);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.projects-detail-block__text {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.projects-detail-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  list-style: disc;
+  list-style-position: outside;
+}
+
+.projects-detail-list li::marker {
+  color: var(--gold-strong);
+}
+
+.projects-detail-list li + li {
+  margin-top: 0.45rem;
+}
+
+.projects-detail-list--compact {
+  padding-left: 1.15rem;
+}
+
+.projects-detail-body__aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ── Responsive overrides ───────────────────────────────────────────────── */
+
+@media (max-width: 1023px) {
+  .project-featured {
+    grid-template-columns: 1fr;
+  }
+
+  .project-featured__media {
+    min-height: 12.5rem;
+  }
+
+  .project-featured__shade,
+  .project-featured--reverse .project-featured__shade {
+    background: linear-gradient(
+      to top,
+      var(--project-card-bg) 8%,
+      rgb(20 18 16 / 12%) 42%,
+      transparent 72%
+    );
+  }
+
+  .project-featured--reverse .project-featured__media,
+  .project-featured--reverse .project-featured__content {
+    order: initial;
+  }
+
+  .project-detail-gallery__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .projects-bento {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-auto-rows: minmax(6rem, auto);
+  }
+
+  .project-bento-card {
+    grid-column: span var(--bento-md-col-span, var(--bento-col-span, 1));
+    grid-row: span var(--bento-md-row-span, var(--bento-row-span, 1));
+  }
+}
+
+@media (max-width: 767px) {
+  .projects-bento {
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+  }
+
+  .project-bento-card {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+
+  .project-bento-card__cover[data-cover-ratio="fill"] {
+    aspect-ratio: 16 / 10;
+    flex: initial;
+    min-height: 0;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .projects-list-viewport,
+  .projects-list-track {
+    transition: none;
+  }
+
+  .project-featured__hover,
+  .project-bento-card__image,
+  .project-card-enter[data-revealed],
+  .project-detail-enter[data-revealed],
+  .project-card-enter[data-enter-complete],
+  .project-detail-enter[data-enter-complete] {
+    animation: none;
+    transition: none;
+  }
+
+  .project-card-enter:not([data-revealed]),
+  .project-detail-enter:not([data-revealed]) {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,308 @@
+/* ── Contact ────────────────────────────────────────────────────────────────
+   Styles for the floating ContactRail (desktop sidebar / mobile dock) and
+   the full ContactSection with invitation card.
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* ── Contact rail (fixed sidebar / mobile dock) ─────────────────────────── */
+
+.contact-rail {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-end: 0;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  padding-inline-end: 0.85rem;
+  pointer-events: none;
+}
+
+.contact-rail__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  pointer-events: auto;
+}
+
+.contact-rail__button {
+  display: inline-flex;
+  width: 2.65rem;
+  height: 2.65rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  background: rgb(9 9 11 / 72%);
+  color: var(--text-secondary);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.contact-rail__button:hover {
+  border-color: var(--border-gold);
+  background: var(--gold-soft);
+  color: var(--foreground);
+  transform: translateY(-1px);
+}
+
+.contact-rail__icon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+/* Email button — hover bridge prevents menu from closing on gap */
+.contact-rail__email {
+  position: relative;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact-rail__email::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    inset-inline-end: 100%;
+    width: 0.55rem;
+  }
+}
+
+/* Email flyout menu */
+.contact-rail__menu {
+  position: absolute;
+  inset-inline-end: calc(100% + 0.55rem);
+  top: 50%;
+  z-index: 1;
+  min-width: 10.5rem;
+  translate: 0 -50%;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 0.85rem;
+  background: rgb(9 9 11 / 94%);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 28%);
+}
+
+.contact-rail__menu-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 0.7rem 0.9rem;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.contact-rail__menu-item:hover {
+  background: rgb(255 255 255 / 6%);
+  color: var(--foreground);
+}
+
+.contact-rail__menu-item + .contact-rail__menu-item {
+  border-top: 1px solid var(--border);
+}
+
+/* Mobile: bottom dock layout */
+@media (max-width: 767px) {
+  .contact-rail {
+    inset-block: auto 0;
+    inset-inline: 0;
+    align-items: flex-end;
+    justify-content: center;
+    padding-block-end: max(0.85rem, env(safe-area-inset-bottom));
+    padding-inline: 1rem;
+  }
+
+  .contact-rail__list {
+    flex-direction: row;
+    gap: 0.75rem;
+    padding: 0.45rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    background: rgb(9 9 11 / 84%);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 8px 28px rgb(0 0 0 / 32%);
+  }
+
+  .contact-rail__button {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  /* Hover bridge — flips to bottom bridge on mobile */
+  .contact-rail__email::before {
+    top: auto;
+    right: 0;
+    bottom: 100%;
+    left: 0;
+    width: auto;
+    height: 0.55rem;
+  }
+
+  /* Menu opens upward on mobile */
+  .contact-rail__menu {
+    inset-inline-end: 50%;
+    top: auto;
+    bottom: calc(100% + 0.55rem);
+    min-width: 9.75rem;
+    translate: 50% 0;
+  }
+}
+
+/* ── Contact section ────────────────────────────────────────────────────── */
+
+.contact-section {
+  border-top: 1px solid var(--border);
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 100%, rgb(201 162 39 / 6%), transparent 70%),
+    var(--background);
+}
+
+.contact-section__stage {
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-block: 4.5rem 5.5rem;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .contact-section__stage {
+    padding-inline: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .contact-section__stage {
+    padding-block: 5.5rem 6.5rem;
+    padding-inline: 2.25rem;
+  }
+}
+
+.contact-section__header {
+  margin: 0 auto 2.25rem;
+  max-width: 38rem;
+  text-align: center;
+}
+
+.contact-section__eyebrow {
+  margin: 0 0 0.45rem;
+  color: var(--gold-strong);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.contact-section__title {
+  margin: 0;
+  color: var(--foreground);
+  font-size: clamp(1.75rem, 3vw, 2.35rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.contact-section__lead {
+  margin: 0.75rem 0 0;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+/* ── Invitation card ─────────────────────────────────────────────────────── */
+
+.contact-invitation {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.15rem;
+  width: min(100%, 28rem);
+  margin-inline: auto;
+  padding: 1.85rem 1.5rem 1.65rem;
+  border: 1px solid var(--border);
+  border-radius: 1.35rem;
+  background: var(--surface);
+  text-align: center;
+}
+
+.contact-invitation__cta {
+  width: 100%;
+  max-width: 16rem;
+  text-decoration: none;
+}
+
+.contact-invitation__copy {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.contact-invitation__copy-inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.contact-invitation__copy-icon {
+  width: 0.95rem;
+  height: 0.95rem;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: color 0.22s ease;
+}
+
+.contact-invitation__copy--copied .text-shine-control__label {
+  --site-nav-link-tone: var(--gold-strong);
+}
+
+.contact-invitation__copy--copied .contact-invitation__copy-icon {
+  color: var(--gold-strong);
+}
+
+.contact-invitation__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem 0.55rem;
+}
+
+.contact-invitation__link {
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.contact-invitation__links-sep {
+  color: var(--text-faint);
+  font-size: 0.875rem;
+  user-select: none;
+}
+
+.contact-invitation__note {
+  margin: 0.15rem 0 0;
+  color: var(--text-faint);
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+}

@@ -1,0 +1,257 @@
+/* ── Technologies Section ───────────────────────────────────────────────────
+   Styles for the compact ↔ expanded tech view transition, scrollable
+   marquee, and technology grid card layout.
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* ── Section container ──────────────────────────────────────────────────── */
+
+.tech-section {
+  border-top: 1px solid var(--border);
+  background: var(--background);
+}
+
+/* ── Animated viewport (height transition between compact and expanded) ── */
+
+.tech-section__viewport {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  transition: height 0.44s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Suppress the height animation on first render */
+.tech-section__viewport[data-init] {
+  transition: none;
+}
+
+/* Phase-specific easing overrides */
+.tech-section__viewport[data-phase="collapsing"] {
+  transition-duration: 0.34s;
+  transition-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+.tech-section__viewport[data-phase="expanding"] {
+  transition-duration: 0.5s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Panel visibility ───────────────────────────────────────────────────── */
+
+.tech-section__panel:not([data-active]) {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.tech-section__panel[data-active] {
+  position: relative;
+  width: 100%;
+}
+
+/* ── Panel inner layouts ────────────────────────────────────────────────── */
+
+.tech-panel--compact {
+  padding: 0.85rem 0 0;
+}
+
+.tech-panel--expanded {
+  padding: 0;
+}
+
+.tech-panel__inner {
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-block: 3.5rem;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .tech-panel__inner {
+    padding-inline: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tech-panel__inner {
+    padding-block: 4.5rem;
+    padding-inline: 2.25rem;
+  }
+}
+
+.tech-panel__header--expanded {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.tech-panel__title--expanded {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.35rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.tech-panel__lead {
+  max-width: 36rem;
+  margin: 0.65rem auto 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.tech-panel__footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* ── Expand/collapse trigger ────────────────────────────────────────────── */
+
+.tech-expand-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  padding-block: 0.35rem 0.5rem;
+  align-self: center;
+}
+
+.tech-expand-trigger__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.tech-expand-trigger__icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-faint);
+  transition: color 0.22s ease;
+}
+
+.tech-expand-trigger:hover .tech-expand-trigger__icon {
+  color: var(--text-muted);
+}
+
+.tech-expand-trigger:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/* ── Draggable marquee ──────────────────────────────────────────────────── */
+
+.tech-marquee {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  border-block: 1px solid var(--border);
+  background: rgb(255 255 255 / 1.5%);
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 7%,
+    #000 93%,
+    transparent
+  );
+}
+
+.tech-marquee[data-dragging] {
+  cursor: grabbing;
+}
+
+.tech-marquee__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.tech-marquee__set {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.tech-marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-block: 0.72rem;
+  padding-inline: 1.15rem;
+  border-inline-end: 1px solid var(--border);
+}
+
+/* ── Technology brand mark (icon + label) ───────────────────────────────── */
+
+.tech-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+}
+
+.tech-brand-mark__icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
+  opacity: 0.82;
+}
+
+.tech-brand-mark__label {
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ── Technology grid (expanded panel) ───────────────────────────────────── */
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .tech-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .tech-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.tech-grid__card {
+  width: 100%;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: rgb(255 255 255 / 2%);
+  justify-content: flex-start;
+  transition: border-color 0.22s ease;
+}
+
+.tech-grid__card:hover {
+  border-color: var(--border-strong);
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-section__viewport,
+  .tech-section__viewport[data-phase="collapsing"],
+  .tech-section__viewport[data-phase="expanding"] {
+    transition: none;
+  }
+}

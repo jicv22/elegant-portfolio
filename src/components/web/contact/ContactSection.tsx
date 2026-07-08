@@ -6,36 +6,13 @@ import { EdgeGlowAnchor } from "@/components/ui/EdgeGlow";
 import { TextShineLink } from "@/components/ui/TextShineControl";
 import { contactChannels, contactSectionContent } from "@/config/contact";
 import { siteSections } from "@/config/site";
+import { useClipboard } from "@/hooks/use-clipboard";
 import { cn } from "@/lib/cn";
 import { Clipboard } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
 
 export function ContactSection() {
   const { email, linkedin, github } = contactChannels;
-  const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    if (!copied) {
-      return;
-    }
-
-    const timeout = window.setTimeout(() => {
-      setCopied(false);
-    }, 1800);
-
-    return () => {
-      window.clearTimeout(timeout);
-    };
-  }, [copied]);
-
-  const handleCopyEmail = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(email.address);
-      setCopied(true);
-    } catch {
-      setCopied(false);
-    }
-  }, [email.address]);
+  const { copied, copy: handleCopyEmail } = useClipboard(email.address);
 
   return (
     <section

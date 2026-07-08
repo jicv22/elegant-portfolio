@@ -1,0 +1,69 @@
+/* ── Split Landing ──────────────────────────────────────────────────────────
+   Styles for the SplitLanding / SplitSection components used on the /hub
+   route (portfolio selector with diagonal clip animations).
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* ── Section entrance keyframes ─────────────────────────────────────────── */
+
+@keyframes split-label-from-left {
+  from {
+    opacity: 0;
+    transform: translate(calc(-50% - 150%), -50%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes split-label-from-right {
+  from {
+    opacity: 0;
+    transform: translate(calc(-50% + 150%), -50%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes split-label-from-top {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% - 150%));
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes split-label-from-bottom {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 150%));
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* ── Split section layout ───────────────────────────────────────────────── */
+
+.split-section--compacted {
+  flex-grow: var(--split-compact-flex-mobile);
+}
+
+@media (min-width: 1024px) {
+  .split-section--compacted {
+    flex-grow: var(--split-compact-flex-desktop);
+  }
+}
+
+.split-landing--diagonal-ready .group\/split {
+  transition:
+    clip-path 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    flex-grow var(--split-collapse-duration) cubic-bezier(0.22, 1, 0.36, 1),
+    flex-basis var(--split-collapse-duration) cubic-bezier(0.22, 1, 0.36, 1);
+}

@@ -4,6 +4,7 @@ import { BrandIcon } from "@/components/icons/BrandIcon";
 import { githubBrand, linkedInBrand } from "@/components/icons/brand-icons";
 import { EdgeGlowAnchor, EdgeGlowButton } from "@/components/ui/EdgeGlow";
 import { contactChannels } from "@/config/contact";
+import { useClipboard } from "@/hooks/use-clipboard";
 import { cn } from "@/lib/cn";
 import { Mail } from "lucide-react";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
@@ -37,13 +38,11 @@ function EmailContactItem() {
   const menuId = useId();
   const rootRef = useRef<HTMLLIElement>(null);
   const [open, setOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
   const { address, mailto, label } = contactChannels.email;
+  const { copied, copy: handleCopy } = useClipboard(address);
 
   useEffect(() => {
-    if (!open) {
-      return;
-    }
+    if (!open) return;
 
     const onPointerDown = (event: PointerEvent) => {
       if (!rootRef.current?.contains(event.target as Node)) {
@@ -65,29 +64,6 @@ function EmailContactItem() {
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [open]);
-
-  useEffect(() => {
-    if (!copied) {
-      return;
-    }
-
-    const timeout = window.setTimeout(() => {
-      setCopied(false);
-    }, 1800);
-
-    return () => {
-      window.clearTimeout(timeout);
-    };
-  }, [copied]);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(address);
-      setCopied(true);
-    } catch {
-      setCopied(false);
-    }
-  };
 
   const handleMouseEnter = () => {
     if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {

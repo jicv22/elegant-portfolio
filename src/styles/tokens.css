@@ -1,0 +1,51 @@
+/* ── Design Tokens ──────────────────────────────────────────────────────────
+   Single source of truth for CSS custom properties.
+   Mirror values are also kept in src/config/colors.ts (for use in JS/TS).
+   Keep both in sync when adding or changing tokens.
+   ──────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --background: #09090b;
+  --foreground: #fafaf9;
+  --surface: #141210;
+  --surface-overlay: rgb(9 9 11 / 72%);
+  --text-secondary: #d6d3d1;
+  --text-muted: #a8a29e;
+  --text-faint: #78716c;
+  --border: rgb(255 255 255 / 12%);
+  --border-strong: rgb(255 255 255 / 22%);
+  --border-gold: rgb(201 162 39 / 35%);
+  --gold: #c9a227;
+  --gold-strong: #d4af37;
+  --gold-muted: #9a7b1f;
+  --gold-soft: rgb(201 162 39 / 14%);
+  --gold-glow: rgb(212 175 55 / 24%);
+  --gold-on: #1c1505;
+  --hero-accent: var(--gold);
+  --hero-accent-strong: var(--gold-strong);
+  --hero-accent-soft: var(--gold-soft);
+  --hero-scrim: rgb(9 9 11 / 94%);
+  --hero-scrim-mid: rgb(9 9 11 / 72%);
+  --hero-scrim-soft: rgb(9 9 11 / 24%);
+  --split-diagonal: 3.5rem;
+  --split-collapse-duration: 700ms;
+  --split-title-fade-duration: 450ms;
+  --split-vertical-enter-duration: 550ms;
+  --split-intro-reveal-duration: 650ms;
+}
+
+/* Maps CSS custom properties into Tailwind v4's theme system. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-muted: var(--text-muted);
+  --color-secondary: var(--text-secondary);
+  --color-faint: var(--text-faint);
+  --color-gold: var(--gold);
+  --color-gold-strong: var(--gold-strong);
+  --color-gold-muted: var(--gold-muted);
+  --color-border: var(--border);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}

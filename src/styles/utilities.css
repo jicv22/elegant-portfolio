@@ -1,0 +1,95 @@
+/* ── Tailwind Utilities ──────────────────────────────────────────────────────
+   Custom utilities registered with Tailwind v4's @utility directive.
+   These become available as atomic class names anywhere in the project.
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* ── Ken Burns image animation ─────────────────────────────────────────── */
+
+@keyframes ken-burns-in {
+  from { transform: scale(1); }
+  to   { transform: scale(1.1); }
+}
+
+@keyframes ken-burns-out {
+  from { transform: scale(1.1); }
+  to   { transform: scale(1); }
+}
+
+@utility animate-ken-burns {
+  animation-name: ken-burns-in;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@utility animate-ken-burns-out {
+  animation-name: ken-burns-out;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+/* ── Split-panel clip paths ─────────────────────────────────────────────── */
+
+@utility clip-split-left {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    calc(100% - var(--split-diagonal)) 100%,
+    0 100%
+  );
+}
+
+@utility clip-split-right {
+  clip-path: polygon(
+    var(--split-diagonal) 0,
+    100% 0,
+    100% 100%,
+    0 100%
+  );
+}
+
+@utility clip-split-top {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - var(--split-diagonal)),
+    0 100%
+  );
+}
+
+@utility clip-split-bottom {
+  clip-path: polygon(
+    0 var(--split-diagonal),
+    100% 0,
+    100% 100%,
+    0 100%
+  );
+}
+
+/* ── Split-label entrance animations ────────────────────────────────────── */
+
+@utility split-label-anchor-center {
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: 50%;
+}
+
+@utility split-label-enter-left {
+  animation: split-label-from-left var(--split-vertical-enter-duration)
+    cubic-bezier(0.22, 1, 0.36, 1) var(--split-collapse-duration) both;
+}
+
+@utility split-label-enter-right {
+  animation: split-label-from-right var(--split-vertical-enter-duration)
+    cubic-bezier(0.22, 1, 0.36, 1) var(--split-collapse-duration) both;
+}
+
+@utility split-label-enter-top {
+  animation: split-label-from-top var(--split-vertical-enter-duration)
+    cubic-bezier(0.22, 1, 0.36, 1) var(--split-collapse-duration) both;
+}
+
+@utility split-label-enter-bottom {
+  animation: split-label-from-bottom var(--split-vertical-enter-duration)
+    cubic-bezier(0.22, 1, 0.36, 1) var(--split-collapse-duration) both;
+}

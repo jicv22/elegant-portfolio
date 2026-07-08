@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ContactRail } from "@/components/web/contact/ContactRail";
 import { ContactSection } from "@/components/web/contact/ContactSection";
-import { Hero } from "@/components/web/hero/Hero";
+import { HeroStage } from "@/components/web/hero/HeroStage";
 import { ProjectsSection } from "@/components/web/projects/ProjectsSection";
 import { TechnologiesSection } from "@/components/web/technologies/TechnologiesSection";
 import { SiteNavbar } from "@/components/web/nav/SiteNavbar";
@@ -18,7 +18,7 @@ export default function Home() {
     <main className="bg-background pb-24 text-foreground md:pb-0">
       <SiteNavbar />
       <ContactRail />
-      <Hero />
+      <HeroStage />
       <TechnologiesSection />
       <ProjectsSection />
       <ContactSection />

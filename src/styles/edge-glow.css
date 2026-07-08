@@ -1,0 +1,79 @@
+/* ── Edge Glow Effect ───────────────────────────────────────────────────────
+   Shared interactive border glow driven by CSS custom properties.
+   Applied via the EdgeGlowAnchor / EdgeGlowButton components
+   (see src/components/ui/EdgeGlow.tsx) and the useEdgeGlow hook.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.edge-glow {
+  --glow-x: 50%;
+  --glow-y: 0%;
+  --glow-opacity: 0;
+  --edge-glow-hot: rgb(255 255 255 / 88%);
+  --edge-glow-soft: rgb(255 255 255 / 0%);
+  --edge-glow-spread: 68%;
+}
+
+.edge-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 2px;
+  background: radial-gradient(
+    var(--edge-glow-spread) var(--edge-glow-spread) at var(--glow-x) var(--glow-y),
+    var(--edge-glow-hot) 0%,
+    var(--edge-glow-soft) 44%,
+    transparent 78%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: var(--glow-opacity);
+  transition: opacity 0.22s ease;
+  pointer-events: none;
+}
+
+/* Hero CTA color overrides */
+.hero-cta--primary.edge-glow {
+  --edge-glow-hot: rgb(255 248 225 / 96%);
+  --edge-glow-soft: rgb(255 236 190 / 42%);
+}
+
+.hero-cta--secondary.edge-glow {
+  --edge-glow-hot: rgb(255 255 255 / 90%);
+  --edge-glow-soft: rgb(212 175 55 / 32%);
+}
+
+/* Contact rail icon buttons */
+.edge-glow--rail {
+  position: relative;
+  isolation: isolate;
+  --edge-glow-hot: rgb(244 220 150 / 92%);
+  --edge-glow-soft: rgb(212 175 55 / 30%);
+  --edge-glow-spread: 72%;
+}
+
+/* Project card border glow */
+.edge-glow--card {
+  position: relative;
+  isolation: isolate;
+  --edge-glow-hot: rgb(244 220 150 / 90%);
+  --edge-glow-soft: rgb(212 175 55 / 26%);
+  --edge-glow-spread: 62%;
+}
+
+.edge-glow--card::after {
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .edge-glow::after {
+    display: none;
+  }
+}

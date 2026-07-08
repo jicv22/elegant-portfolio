@@ -1,30 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Portfolio
 
-## Getting Started
+Portafolio digital desarrollado con Next.js 16 (App Router), React 19 y Tailwind CSS v4.
 
-First, run the development server:
+## Arquitectura y Estructura
+
+El proyecto sigue una arquitectura modular y escalable. Recientemente se realizó un refactor para mejorar la mantenibilidad de los estilos y componentes.
+
+### Estructura de carpetas principales
+
+- `src/app/` - Rutas de la aplicación (App Router). `globals.css` actúa solo como punto de entrada de estilos.
+- `src/components/` - Componentes organizados por dominio:
+  - `web/` - Componentes específicos de las secciones del portafolio (Hero, Projects, Tech, etc).
+  - `ui/` - Componentes visuales genéricos y reutilizables (`EdgeGlow`, `TextShineControl`).
+  - `icons/` - SVGs y componentes de iconos.
+- `src/config/` - Archivos de configuración y contenido (fuente de verdad). Separados por dominio (`cv.ts`, `site.ts`, `projects.ts`, etc).
+- `src/hooks/` - Custom hooks (e.g., `useClipboard`, `useEdgeGlow`).
+- `src/lib/` - Utilidades, tipados compartidos y funciones core.
+- `src/styles/` - **Design System y Estilos CSS modulares**. Cada sección/componente complejo tiene su propio archivo CSS.
+
+### Design System (CSS y Tailwind v4)
+
+Los estilos se gestionan a través de una combinación de variables CSS nativas y utilidades de Tailwind v4:
+1. `src/styles/tokens.css` contiene las variables CSS (`--background`, `--gold`, etc.) y las inyecta en el `@theme` de Tailwind.
+2. Los estilos de componentes están extraídos en archivos modulares (e.g., `hero.css`, `projects.css`) y utilizan la metodología BEM para las clases.
+3. El archivo `src/app/globals.css` solo se utiliza para importar estos módulos y las directivas de Tailwind.
+
+## Desarrollo
+
+Primero, instala las dependencias:
+
+```bash
+pnpm install
+```
+
+Luego, inicia el servidor de desarrollo:
 
 ```bash
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver el resultado.
 
-You can start editing the page by modifying `src/app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts útiles
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `pnpm dev`: Inicia el servidor de desarrollo.
+- `pnpm build`: Construye la aplicación para producción.
+- `pnpm start`: Inicia el servidor de producción.
+- `pnpm lint`: Ejecuta ESLint para analizar el código.
