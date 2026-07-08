@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { pinFieldHeroProfile } from "@/config/pin-field";
 import { siteSections } from "@/config/site";
 import { HeroContent } from "@/components/web/hero/HeroContent";
+import { HeroScrollHint } from "@/components/web/hero/HeroScrollHint";
 import { usePinFieldRuntime } from "@/hooks/use-pin-field-runtime";
 import { useState } from "react";
 
@@ -33,6 +34,7 @@ export function HeroStage() {
         <div className="pointer-events-none relative z-10 flex h-full items-center justify-start px-12 py-28 sm:px-16 md:px-20 lg:px-28 xl:px-36 2xl:px-44">
           <HeroContent />
         </div>
+        <HeroScrollHint />
       </div>
     </section>
   );

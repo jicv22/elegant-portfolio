@@ -211,6 +211,12 @@
   pointer-events: none;
 }
 
+.hero-pin-background,
+.hero-pin-background * {
+  touch-action: pan-y !important;
+  pointer-events: none !important;
+}
+
 .hero-pin-veil {
   position: absolute;
   inset: 0;
@@ -275,6 +281,154 @@
     animation: none;
     opacity: 1;
     transform: none;
+  }
+}
+
+@property --hint-glow-x {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+
+@property --hint-glow-y {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 1.75rem;
+  left: 50%;
+  z-index: 20;
+  display: flex;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.hero-scroll-hint[data-visible="true"] {
+  opacity: 1;
+  transition-delay: 1s;
+}
+
+.hero-scroll-hint[data-visible="false"] {
+  opacity: 0;
+  transform: translateX(-50%) translateY(0.6rem);
+}
+
+.hero-scroll-hint[data-visible="false"] .hero-scroll-hint__button {
+  pointer-events: none;
+}
+
+.hero-scroll-hint__button {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  background: rgb(9 9 11 / 45%);
+  backdrop-filter: blur(6px);
+  color: var(--gold-strong);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.hero-scroll-hint__button:hover {
+  color: var(--gold);
+  background: rgb(9 9 11 / 62%);
+}
+
+.hero-scroll-hint__button {
+  animation: hero-hint-bounce 2.4s ease-in-out infinite;
+}
+
+.hero-scroll-hint__button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: radial-gradient(
+    42% 42% at var(--hint-glow-x) var(--hint-glow-y),
+    rgb(255 248 225 / 96%) 0%,
+    rgb(212 175 55 / 45%) 46%,
+    transparent 76%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: hero-hint-orbit 5s linear infinite;
+}
+
+@keyframes hero-hint-orbit {
+  0% {
+    --hint-glow-x: 50%;
+    --hint-glow-y: 0%;
+  }
+  25% {
+    --hint-glow-x: 100%;
+    --hint-glow-y: 50%;
+  }
+  50% {
+    --hint-glow-x: 50%;
+    --hint-glow-y: 100%;
+  }
+  75% {
+    --hint-glow-x: 0%;
+    --hint-glow-y: 50%;
+  }
+  100% {
+    --hint-glow-x: 50%;
+    --hint-glow-y: 0%;
+  }
+}
+
+.hero-scroll-hint__chevron {
+  width: 1.55rem;
+  height: 1.55rem;
+}
+
+@keyframes hero-hint-bounce {
+  0%,
+  100% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-scroll-hint {
+    bottom: 6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll-hint__button {
+    animation: none;
+    transform: none;
+  }
+
+  .hero-scroll-hint__button::after {
+    animation: none;
+    --hint-glow-x: 50%;
+    --hint-glow-y: 0%;
   }
 }
 
