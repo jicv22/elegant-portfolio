@@ -13,11 +13,31 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: "Portfolio",
-    template: "%s | Portfolio",
+  title: "Portafolio | JICV",
+  description: "Desarrollo web a medida. Sitios y productos digitales para tu negocio.",
+  metadataBase: new URL("https://jicv.vercel.app"),
+  openGraph: {
+    type: "website",
+    locale: "es_CR",
+    url: "https://jicv.vercel.app",
+    title: "Portafolio | JICV",
+    description: "Desarrollo web a medida. Sitios y productos digitales para tu negocio.",
+    siteName: "JICV Portfolio",
+    images: [
+      {
+        url: "/media/brand/meta-img.webp",
+        width: 1200,
+        height: 630,
+        alt: "Portafolio de Desarrollo Web - JICV",
+      },
+    ],
   },
-  description: "Personal portfolio and digital presence.",
+  twitter: {
+    card: "summary_large_image",
+    title: "Portafolio | JICV",
+    description: "Desarrollo web a medida. Sitios y productos digitales para tu negocio.",
+    images: ["/media/brand/meta-img.webp"],
+  },
 };
 
 export default function RootLayout({

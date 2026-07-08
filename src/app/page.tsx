@@ -7,12 +7,6 @@ import { TechnologiesSection } from "@/components/web/technologies/TechnologiesS
 import { SiteNavbar } from "@/components/web/nav/SiteNavbar";
 import { SiteFooter } from "@/components/web/footer/SiteFooter";
 
-export const metadata: Metadata = {
-  title: "Desarrollo Web",
-  description:
-    "Desarrollo web a medida. Sitios y productos digitales para tu negocio.",
-};
-
 export default function Home() {
   return (
     <main className="bg-background pb-24 text-foreground md:pb-0">
