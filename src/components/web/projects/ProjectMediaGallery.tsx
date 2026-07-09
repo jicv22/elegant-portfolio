@@ -14,8 +14,6 @@ export function ProjectMediaGallery({
   cover,
   gallery,
 }: ProjectMediaGalleryProps) {
-  const hasGallery = gallery.length > 0;
-
   return (
     <div className="project-detail-gallery">
       <figure
@@ -32,7 +30,6 @@ export function ProjectMediaGallery({
         />
       </figure>
 
-      {hasGallery ? (
         <div className="project-detail-gallery__grid">
           {gallery.map((item, index) => {
             if (item.type === "image") {
@@ -77,12 +74,7 @@ export function ProjectMediaGallery({
             );
           })}
         </div>
-      ) : (
-        <p className="project-detail-gallery__placeholder">
-          Galería preparada para imágenes y videos. El material visual se añadirá
-          próximamente.
-        </p>
-      )}
+      
     </div>
   );
 }
